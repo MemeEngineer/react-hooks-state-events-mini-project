@@ -1,14 +1,18 @@
 import React from "react";
 
+function CategoryFilter({categories, updateCat, currentCat}) {
+function handleClick(event){
+updateCat(event.target.value)
+};
 
-function CategoryFilter(props) {
   return (
     <div className="categories">
       <h5>Category filters</h5>
       {/* render <button> elements for each category here */}
-{props.categories.forEach(category => 
-  <button onClick={()=> console.log('hello')}>{category}</button>)}
-      
+      {categories.map((category)=> (
+        <button key={category}  value={category} onClick={(event)=>handleClick(event)}
+         className= {(currentCat === category) ? "selected" : null}>{category}</button>
+      ))}
     </div>
   );
 }

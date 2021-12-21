@@ -1,26 +1,21 @@
-import React, { useState } from "react";
+import React from "react";
 import Task from "./Task";
 
-function TaskList(props) {
-  const [taskList, setTaskList] = useState(props.tasks);
+function TaskList({tasks, updateTask}) {
 
-  function removeTask(index) {
-    const newList = [...taskList];
-    newList.splice(index, 1);
-    setTaskList(newList);
+  function removeTask(event){
+    //filter will return in text array without selected text
+const deleteTask= tasks.filter((task) => task.text != event.target.value);
+ updateTask(deleteTask)
   }
-
+  
   return (
     <div className="tasks">
-      {taskList.map((task, index) => (
-        <Task
-          index={index}
-          key={index}
-          text={task.text}
-          category={task.category}
-          onClick={(index) => removeTask(index)}
-        />
-      ))}
+      {/* display a list of tasks using Task component */}
+      {tasks.map((task) => (
+<Task key={task.text} category={task.category} text= {task.text} removeTask={removeTask}/>
+
+        ))}
     </div>
   );
 }
